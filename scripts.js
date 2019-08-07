@@ -6,7 +6,6 @@ window.onload = function () {
   
   var categories;         // Array of topics
   var chosenCategory;     // Selected catagory
-  var getHint ;          // Word getHint
   var word ;              // Selected word
   var guess ;             // Geuss
   var geusses = [ ];      // Stored geusses
