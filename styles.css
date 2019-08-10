@@ -80,7 +80,7 @@ p {
   padding: 0 10px;
   font-size: 1.6em;
 }
-.active {
+.checked {
   opacity: 0.4;
   filter: alpha(opacity=40);
   -moz-transition: all 1s ease-in;
@@ -88,7 +88,7 @@ p {
   -webkit-transition: all 0.3s ease-in-out;
   cursor: default;
 }
-.active:hover {
+.checked:hover {
   -moz-transition: all 1s ease-in;
   -moz-transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;

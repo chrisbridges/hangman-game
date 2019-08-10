@@ -1,4 +1,4 @@
-window.onload = function () {
+window.onload = function () { // TODO: rename many of these things so it's more apparent what they do
 
   // generate an array of the alphabet
   const alphabet = [...Array(26).keys()].map(i => String.fromCharCode(i + 97))
@@ -6,12 +6,9 @@ window.onload = function () {
   let word
   let guess
   let guesses = []
-  let lives
-  let counter
-  let space
-
-  // Get elements
-  let showLives = document.getElementById("mylives")
+  let lives = 10
+  let counter = 0
+  let space = 0
 
   // create alphabet ul
   let buttons = function () {
@@ -23,21 +20,56 @@ window.onload = function () {
       list = document.createElement('li')
       list.id = 'letter'
       list.innerHTML = alphabet[i]
-      check()
       myButtons.appendChild(letters)
       letters.appendChild(list)
+      attachClickEventListener()
     }
   }
 
+  // OnClick Function
+  attachClickEventListener = function () {
+    list.onclick = function () {
+      let letterGuessed = (this.innerHTML)
+      console.log(letterGuessed)
+
+      // add styling to remove guess from options
+      this.setAttribute("class", "checked")
+
+      // remove event listener from letter
+      this.onclick = null
+
+      // TODO: have students write this logic
+      for (let i = 0; i < word.length; i++) {
+        if (word[i] === letterGuessed) {
+          guesses[i].innerHTML = letterGuessed
+          counter += 1
+        } 
+      }
+      let j = (word.indexOf(letterGuessed))
+      if (j === -1) {
+        lives -= 1
+        animate()
+      }
+      updateLives()
+    }
+  }
+
+  // Animate man - TODO: students can write this logic
+  let animate = function () {
+    drawArray[lives]()
+  }
+
   // Create guesses ul
-   result = function () {
-    wordHolder = document.getElementById('hold')
-    correct = document.createElement('ul')
+  createBlanksForWord = function () {
+    wordHolder = document.getElementById('my-word-container')
+    myWordLetterList = document.createElement('ul')
+    myWordLetterList.setAttribute('id', 'my-word')
 
     for (let i = 0; i < word.length; i++) {
-      correct.setAttribute('id', 'my-word')
+      // this will create the blank for each letter
       guess = document.createElement('li')
       guess.setAttribute('class', 'guess')
+
       if (word[i] === "-") {
         guess.innerHTML = "-"
         space += 1
@@ -51,13 +83,15 @@ window.onload = function () {
       }
 
       guesses.push(guess)
-      wordHolder.appendChild(correct)
-      correct.appendChild(guess)
+      wordHolder.appendChild(myWordLetterList)
+      myWordLetterList.appendChild(guess)
     }
   }
+
+  const showLives = document.getElementById("mylives")
   
-  // Show lives
-   comments = function () {
+  // Show lives - TODO: students can write this logic
+  updateLives = function () {
     showLives.innerHTML = "You have " + lives + " lives"
     if (lives < 1) {
       showLives.innerHTML = "Game Over"
@@ -68,13 +102,41 @@ window.onload = function () {
       }
     }
   }
+    
+  // Play
+  play = function () {
+    // TODO: have students list words
+    words = [
+      "a b c"
+    ]
 
-  // Animate man
-  let animate = function () {
-    drawArray[lives]()
+    // TODO: have students choose word at random
+    word = words[Math.floor(Math.random() * words.length)]
+    // convert string into array
+    word = word.split('')
+    console.log(word) // reprecussions of converting word to array?
+    
+    // reset variables for new game
+    guesses = []
+    lives = 10
+    counter = 0
+    space = 0
+
+    buttons()
+    createBlanksForWord()
+    updateLives()
+    canvas()
   }
-  
-   // Hangman
+
+  // Reset game
+  document.getElementById('reset').onclick = function() {
+    myWordLetterList.parentNode.removeChild(myWordLetterList)
+    letters.parentNode.removeChild(letters)
+    context.clearRect(0, 0, 400, 400)
+    play()
+  }
+
+  // Hangman
   canvas =  function(){
     myStickman = document.getElementById("stickman")
     context = myStickman.getContext('2d')
@@ -95,97 +157,45 @@ window.onload = function () {
     context.moveTo($pathFromx, $pathFromy)
     context.lineTo($pathTox, $pathToy)
     context.stroke() 
-}
+  }
 
-   frame1 = function() {
-     draw (0, 150, 150, 150)
-   }
-   
-   frame2 = function() {
-     draw (10, 0, 10, 600)
-   }
-  
-   frame3 = function() {
-     draw (0, 5, 70, 5)
-   }
-  
-   frame4 = function() {
-     draw (60, 5, 60, 15)
-   }
-  
-   torso = function() {
-     draw (60, 36, 60, 70)
-   }
-  
-   rightArm = function() {
-     draw (60, 46, 100, 50)
-   }
-  
-   leftArm = function() {
-     draw (60, 46, 20, 50)
-   }
-  
-   rightLeg = function() {
-     draw (60, 70, 100, 100)
-   }
-  
-   leftLeg = function() {
-     draw (60, 70, 20, 100)
-   }
-  
-  drawArray = [rightLeg, leftLeg, rightArm, leftArm,  torso,  head, frame4, frame3, frame2, frame1] 
-
-
-  // OnClick Function
-   check = function () {
-    list.onclick = function () {
-      let guess = (this.innerHTML)
-      this.setAttribute("class", "active")
-      this.onclick = null
-      for (let i = 0; i < word.length; i++) {
-        if (word[i] === guess) {
-          guesses[i].innerHTML = guess
-          counter += 1
-        } 
-      }
-      let j = (word.indexOf(guess))
-      if (j === -1) {
-        lives -= 1
-        animate()
-      }
-      comments()
-    }
+  base = function() {
+    draw (0, 150, 150, 150)
   }
   
-  // Play
-  play = function () {
-    words = [
-      "another other word"
-    ]
-
-    // chosenCategory = words[Math.floor(Math.random() * words.length)]
-    word = words[Math.floor(Math.random() * words.length)]
-    word = word.replace(/\s/g, " ")
-    console.log(word)
-    buttons()
-
-    guesses = [ ]
-    lives = 10
-    counter = 0
-    space = 0
-    result()
-    comments()
-    canvas()
+  post = function() {
+    draw (10, 0, 10, 600)
   }
+
+  ceiling = function() {
+    draw (0, 5, 70, 5)
+  }
+
+  noose = function() {
+    draw (60, 5, 60, 15)
+  }
+
+  torso = function() {
+    draw (60, 36, 60, 70)
+  }
+
+  rightArm = function() {
+    draw (60, 46, 100, 50)
+  }
+
+  leftArm = function() {
+    draw (60, 46, 20, 50)
+  }
+
+  rightLeg = function() {
+    draw (60, 70, 100, 100)
+  }
+
+  leftLeg = function() {
+    draw (60, 70, 20, 100)
+  }
+
+  drawArray = [rightLeg, leftLeg, rightArm, leftArm,  torso,  head, noose, ceiling, post, base] 
 
   play()
-
-   // Reset
-  document.getElementById('reset').onclick = function() {
-    correct.parentNode.removeChild(correct)
-    letters.parentNode.removeChild(letters)
-    // showClue.innerHTML = ""
-    context.clearRect(0, 0, 400, 400)
-    play()
-  }
 }
