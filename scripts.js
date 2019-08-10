@@ -35,7 +35,7 @@ window.onload = function () { // TODO: rename many of these things so it's more 
       // add styling to remove guess from options
       this.setAttribute("class", "checked")
 
-      // remove event listener from letter
+      // remove event listener from letter, so that nothing happens if letter is clicked again
       this.onclick = null
 
       // TODO: have students write this logic
@@ -45,8 +45,9 @@ window.onload = function () { // TODO: rename many of these things so it's more 
           counter += 1
         } 
       }
-      let j = (word.indexOf(letterGuessed))
-      if (j === -1) {
+      let wordDoesNotContainLetterGuessed = !word.includes(letterGuessed)
+      console.log(wordDoesNotContainLetterGuessed)
+      if (wordDoesNotContainLetterGuessed) {
         lives -= 1
         animate()
       }
@@ -83,6 +84,7 @@ window.onload = function () { // TODO: rename many of these things so it's more 
       }
 
       guesses.push(guess)
+      console.log(guesses)
       wordHolder.appendChild(myWordLetterList)
       myWordLetterList.appendChild(guess)
     }
