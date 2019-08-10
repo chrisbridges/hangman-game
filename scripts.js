@@ -1,4 +1,5 @@
 window.onload = function () {
+
   // generate an array of the alphabet
   const alphabet = [...Array(26).keys()].map(i => String.fromCharCode(i + 97))
 
@@ -39,8 +40,13 @@ window.onload = function () {
       guess.setAttribute('class', 'guess')
       if (word[i] === "-") {
         guess.innerHTML = "-"
-        space = 1
-      } else {
+        space += 1
+      } 
+      if (word[i] === " ") {
+        guess.innerHTML = " "
+        space += 1
+      }
+      else {
         guess.innerHTML = "_"
       }
 
@@ -63,16 +69,13 @@ window.onload = function () {
     }
   }
 
-      // Animate man
+  // Animate man
   let animate = function () {
-    let drawMe = lives 
-    drawArray[drawMe]()
+    drawArray[lives]()
   }
-
   
    // Hangman
   canvas =  function(){
-
     myStickman = document.getElementById("stickman")
     context = myStickman.getContext('2d')
     context.beginPath()
@@ -80,16 +83,15 @@ window.onload = function () {
     context.lineWidth = 2
   }
   
-    head = function(){
-      myStickman = document.getElementById("stickman")
-      context = myStickman.getContext('2d')
-      context.beginPath()
-      context.arc(60, 25, 10, 0, Math.PI*2, true)
-      context.stroke()
-    }
+  head = function(){
+    myStickman = document.getElementById("stickman")
+    context = myStickman.getContext('2d')
+    context.beginPath()
+    context.arc(60, 25, 10, 0, Math.PI*2, true)
+    context.stroke()
+  }
     
   draw = function($pathFromx, $pathFromy, $pathTox, $pathToy) {
-    
     context.moveTo($pathFromx, $pathFromy)
     context.lineTo($pathTox, $pathToy)
     context.stroke() 
@@ -137,38 +139,33 @@ window.onload = function () {
   // OnClick Function
    check = function () {
     list.onclick = function () {
-      let geuss = (this.innerHTML)
+      let guess = (this.innerHTML)
       this.setAttribute("class", "active")
       this.onclick = null
       for (let i = 0; i < word.length; i++) {
-        if (word[i] === geuss) {
-          guesses[i].innerHTML = geuss
+        if (word[i] === guess) {
+          guesses[i].innerHTML = guess
           counter += 1
         } 
       }
-      let j = (word.indexOf(geuss))
+      let j = (word.indexOf(guess))
       if (j === -1) {
         lives -= 1
-        comments()
         animate()
-      } else {
-        comments()
       }
+      comments()
     }
   }
   
-    
   // Play
   play = function () {
-    categories = [
-        ["everton", "liverpool", "swansea", "chelsea", "hull", "manchester-city", "newcastle-united"],
-        ["alien", "dirty-harry", "gladiator", "finding-nemo", "jaws"],
-        ["manchester", "milan", "madrid", "amsterdam", "prague"]
+    words = [
+      "another other word"
     ]
 
-    chosenCategory = categories[Math.floor(Math.random() * categories.length)]
-    word = chosenCategory[Math.floor(Math.random() * chosenCategory.length)]
-    word = word.replace(/\s/g, "-")
+    // chosenCategory = words[Math.floor(Math.random() * words.length)]
+    word = words[Math.floor(Math.random() * words.length)]
+    word = word.replace(/\s/g, " ")
     console.log(word)
     buttons()
 
@@ -182,24 +179,8 @@ window.onload = function () {
   }
 
   play()
-  
-  // Hint
-
-  //   hint.onclick = function() {
-
-  //     hints = [
-  //       ["Based in Mersyside", "Based in Mersyside", "First Welsh team to reach the Premier Leauge", "Owned by A russian Billionaire", "Once managed by Phil Brown", "2013 FA Cup runners up", "Gazza's first club"],
-  //       ["Science-Fiction horror film", "1971 American action film", "Historical drama", "Anamated Fish", "Giant great white shark"],
-  //       ["Northern city in the UK", "Home of AC and Inter", "Spanish capital", "Netherlands capital", "Czech Republic capital"]
-  //   ]
-
-  //   let catagoryIndex = categories.indexOf(chosenCategory)
-  //   let hintIndex = chosenCategory.indexOf(word)
-  //   showClue.innerHTML = "Clue: - " +  hints [catagoryIndex][hintIndex]
-  // }
 
    // Reset
-
   document.getElementById('reset').onclick = function() {
     correct.parentNode.removeChild(correct)
     letters.parentNode.removeChild(letters)
