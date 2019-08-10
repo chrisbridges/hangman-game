@@ -1,5 +1,5 @@
 window.onload = function () {
-
+  // generate an array of the alphabet
   const alphabet = [...Array(26).keys()].map(i => String.fromCharCode(i + 97))
 
   let word
@@ -11,7 +11,6 @@ window.onload = function () {
 
   // Get elements
   let showLives = document.getElementById("mylives")
-  let showClue = document.getElementById("clue")
 
   // create alphabet ul
   let buttons = function () {
@@ -26,18 +25,6 @@ window.onload = function () {
       check()
       myButtons.appendChild(letters)
       letters.appendChild(list)
-    }
-  }
-    
-  
-  // Select Catagory
-  let selectCat = function () {
-    if (chosenCategory === categories[0]) {
-      catagoryName.innerHTML = "The Chosen Category Is Premier League Football Teams"
-    } else if (chosenCategory === categories[1]) {
-      catagoryName.innerHTML = "The Chosen Category Is Films"
-    } else if (chosenCategory === categories[2]) {
-      catagoryName.innerHTML = "The Chosen Category Is Cities"
     }
   }
 
@@ -198,25 +185,25 @@ window.onload = function () {
   
   // Hint
 
-    hint.onclick = function() {
+  //   hint.onclick = function() {
 
-      hints = [
-        ["Based in Mersyside", "Based in Mersyside", "First Welsh team to reach the Premier Leauge", "Owned by A russian Billionaire", "Once managed by Phil Brown", "2013 FA Cup runners up", "Gazza's first club"],
-        ["Science-Fiction horror film", "1971 American action film", "Historical drama", "Anamated Fish", "Giant great white shark"],
-        ["Northern city in the UK", "Home of AC and Inter", "Spanish capital", "Netherlands capital", "Czech Republic capital"]
-    ]
+  //     hints = [
+  //       ["Based in Mersyside", "Based in Mersyside", "First Welsh team to reach the Premier Leauge", "Owned by A russian Billionaire", "Once managed by Phil Brown", "2013 FA Cup runners up", "Gazza's first club"],
+  //       ["Science-Fiction horror film", "1971 American action film", "Historical drama", "Anamated Fish", "Giant great white shark"],
+  //       ["Northern city in the UK", "Home of AC and Inter", "Spanish capital", "Netherlands capital", "Czech Republic capital"]
+  //   ]
 
-    let catagoryIndex = categories.indexOf(chosenCategory)
-    let hintIndex = chosenCategory.indexOf(word)
-    showClue.innerHTML = "Clue: - " +  hints [catagoryIndex][hintIndex]
-  }
+  //   let catagoryIndex = categories.indexOf(chosenCategory)
+  //   let hintIndex = chosenCategory.indexOf(word)
+  //   showClue.innerHTML = "Clue: - " +  hints [catagoryIndex][hintIndex]
+  // }
 
    // Reset
 
   document.getElementById('reset').onclick = function() {
     correct.parentNode.removeChild(correct)
     letters.parentNode.removeChild(letters)
-    showClue.innerHTML = ""
+    // showClue.innerHTML = ""
     context.clearRect(0, 0, 400, 400)
     play()
   }
