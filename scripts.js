@@ -133,10 +133,8 @@ window.onload = function () {
   }
 
   function didUserWinGame () {
-    for (let i = 0; i < word.length; i++) {
-      if (numberOfLettersGuessedCorrectly + numberOfSpacesInWord === word.length) {
-        showLives.textContent = "You Win!"
-      }
+    if (numberOfLettersGuessedCorrectly + numberOfSpacesInWord === word.length) {
+      showLives.textContent = "You Win!"
     }
   }
 
