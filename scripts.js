@@ -1,6 +1,6 @@
 window.onload = function () {
 
-  // generate an array of the alphabet
+  // generate an array of the alphabet - bonus: find your own way of generating an array with the alphabet
   const alphabet = [...Array(26).keys()].map(i => String.fromCharCode(i + 97))
 
   let word
@@ -35,27 +35,28 @@ window.onload = function () {
     drawHangmanBox()
   }
 
-  // create alphabet ul
+  // create letters for guessing
   function generateButtons () {
     myButtons = document.getElementById('buttons')
     letters = document.createElement('ul')
+    letters.id = 'alphabet'
 
+    // we need to add the following logic for every letter in our alphabet array
     for (let i = 0; i < alphabet.length; i++) {
-      letters.id = 'alphabet'
-      list = document.createElement('li')
-      list.id = 'letter'
-      list.innerHTML = alphabet[i]
+      letter = document.createElement('li')
+      letter.id = 'letter'
+      letter.textContent = alphabet[i]
       myButtons.appendChild(letters)
-      letters.appendChild(list)
+      letters.appendChild(letter)
       attachClickEventListener()
     }
   }
 
   // OnClick Function
   attachClickEventListener = function () {
-    list.onclick = function () {
+    letter.onclick = function () {
       // letterGuessed is equal to the letter we clicked on
-      let letterGuessed = (this.innerHTML)
+      let letterGuessed = (this.textContent)
 
       // add styling to remove letter from available options
       this.setAttribute("class", "checked")
@@ -67,7 +68,7 @@ window.onload = function () {
       // when a letter is guessed, loop through the word to fill in any correct matches
       for (let i = 0; i < word.length; i++) {
         if (word[i] === letterGuessed) {
-          letterBlanks[i].innerHTML = letterGuessed
+          letterBlanks[i].textContent = letterGuessed
           numberOfLettersGuessedCorrectly += 1
         } 
       }
@@ -103,11 +104,11 @@ window.onload = function () {
       guess.setAttribute('class', 'guess')
 
       if (word[i] === " ") {
-        guess.innerHTML = " "
+        guess.textContent = " "
         numberOfSpacesInWord += 1
       }
       else {
-        guess.innerHTML = "_"
+        guess.textContent = "_"
       }
 
       letterBlanks.push(guess)
@@ -121,25 +122,24 @@ window.onload = function () {
   // Show lives - TODO: students can write this logic
   function displayLives () {
     // if user has run out of lives - show "Game over"
-      // display this with: showLives.innerHTML = "Game Over"
+      // display this with: showLives.textContent = "Game Over"
     // else tell user how many lives they have left
-      // showLives.innerHTML = "You have X number of lives remaining"
+      // showLives.textContent = "You have X number of lives remaining"
     if (lives <= 0) {
-      showLives.innerHTML = "Game Over"
+      showLives.textContent = "Game Over"
     } else {
-      showLives.innerHTML = "You have " + lives + " lives"
+      showLives.textContent = "You have " + lives + " lives"
     }
   }
 
   function didUserWinGame () {
     for (let i = 0; i < word.length; i++) {
       if (numberOfLettersGuessedCorrectly + numberOfSpacesInWord === word.length) {
-        showLives.innerHTML = "You Win!"
+        showLives.textContent = "You Win!"
       }
     }
   }
 
-  // Hangman
   function drawHangmanBox () {
     myStickman = document.getElementById("stickman")
     context = myStickman.getContext('2d')
@@ -206,8 +206,9 @@ window.onload = function () {
   document.getElementById('reset').onclick = function () {
     // remove the old word blanks
     myWordLetterList.parentNode.removeChild(myWordLetterList)
-
+    // remove the guessing letters
     letters.parentNode.removeChild(letters)
+    // remove the hangman
     context.clearRect(0, 0, 400, 400)
     play()
   }
