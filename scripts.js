@@ -1,6 +1,7 @@
 window.onload = function () {
 
-  // generate an array of the alphabet - bonus: find your own way of generating an array with the alphabet
+  // generate an array of the alphabet
+    // Bonus: find your own way of generating an array containing the alphabet
   const alphabet = [...Array(26).keys()].map(i => String.fromCharCode(i + 97))
 
   let word
