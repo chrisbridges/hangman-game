@@ -13,7 +13,7 @@ window.onload = function () {
   let letters
   // TODO: have students list words
   let words = [
-    "a b c"
+    'hangman is fun', 'la clippers', 'kawhi leonard', 'coding is fun', 'javascript', 'thinkful'
   ]
 
   // Start our game
