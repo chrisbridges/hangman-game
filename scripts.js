@@ -1,8 +1,19 @@
 window.onload = function () {
 
   // generate an array of the alphabet
-    // Bonus: find your own way of generating an array containing the alphabet
-  const alphabet = [...Array(26).keys()].map(i => String.fromCharCode(i + 97))
+  const alphabet = generateAlphabet()
+
+  // TODO: have students write this
+    // Note: "a" in JavaScript is returned from String.fromCharCode(97)
+      // "b" === String.fromCharCode(98)
+      // and so on...
+  function generateAlphabet () {
+    const alphabet = []
+    for (let i = 0; i < 26; i++) {
+      alphabet.push(String.fromCharCode(i + 97))
+    }
+    return alphabet
+  }
 
   let word
   let letterBlanks = []
