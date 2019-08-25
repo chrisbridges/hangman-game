@@ -1,7 +1,9 @@
-import { checkIfLetterHasBeenGuessed } from './scripts.js'
+import { checkIfLetterHasBeenGuessed, alphabet, letterBlanks } from './scripts.js'
 
 const myStickman = document.getElementById('stickman')
 const context = myStickman.getContext('2d')
+const showLives = document.getElementById('mylives')
+const numberOfSpacesInWord = 0
 
 // OnClick Function
 function attachClickEventListener (letter) {
@@ -99,6 +101,38 @@ function resetGame () {
   }
 }
 
-const drawArray = [rightLeg, leftLeg, rightArm, leftArm, torso, head, noose, ceiling, post, base]
+// create letters for guessing - TODO: remove?
+function generateButtons () {
+  const letters = createListForLetters()
+  // we need to add the following logic for every letter in our alphabet array
+  for (let i = 0; i < alphabet.length; i++) {
+    createLetterForGuessing(alphabet, i, letters)
+  }
+}
+// Create guesses ul - TODO: remove?
+function createBlanksForWord (word) {
+  const wordHolder = document.getElementById('my-word-container')
+  const myWordLetterList = document.createElement('ul')
+  myWordLetterList.setAttribute('id', 'my-word')
 
-export { createListForLetters, createLetterForGuessing, attachClickEventListener, drawHangmanBox, drawArray, resetGame }
+  for (let i = 0; i < word.length; i++) {
+    // this will create the blank for each letter
+    const guess = document.createElement('li')
+    guess.setAttribute('class', 'guess')
+
+    // if (word[i] === ' ') {
+    //   guess.textContent = ' '
+    //   numberOfSpacesInWord += 1
+    // } else {
+    guess.textContent = '_'
+    // }
+
+    letterBlanks.push(guess)
+    wordHolder.appendChild(myWordLetterList)
+    myWordLetterList.appendChild(guess)
+  }
+}
+
+const hangmanParts = [rightLeg, leftLeg, rightArm, leftArm, torso, head, noose, ceiling, post, base]
+
+export { numberOfSpacesInWord, generateButtons, createBlanksForWord, createListForLetters, createLetterForGuessing, attachClickEventListener, showLives, drawHangmanBox, rightLeg, leftLeg, rightArm, leftArm, torso, head, noose, ceiling, post, base, resetGame }
