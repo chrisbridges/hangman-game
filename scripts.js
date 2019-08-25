@@ -1,6 +1,7 @@
 import { drawHangmanBox, generateButtons, createBlanksForWord, showLives, resetGame, rightLeg, leftLeg, rightArm, leftArm, torso, head, noose, ceiling, post, base } from './other.js'
 
 const word = randomWord()
+// this array contains the blank spaces displayed to a player to guess our word
 const letterBlanks = []
 let lives = 10
 let numberOfLettersGuessedCorrectly = 0
@@ -8,7 +9,6 @@ const alphabet = generateAlphabet()
 
 play()
 
-// TODO: have students write this
 // Note: "a" in JavaScript is returned from String.fromCharCode(97)
 // "b" === String.fromCharCode(98)
 // and so on...
@@ -21,11 +21,9 @@ function generateAlphabet () {
 }
 
 function randomWord () {
-  // TODO: have students list words
   const words = [
     'hangman', 'javascript', 'thinkful'
   ]
-  // TODO: have students choose word at random
   // choose a random word from our array of words for our game
   // HINT: we can use the Math methods of floor and random to help here
   let word = words[Math.floor(Math.random() * words.length)]
@@ -42,7 +40,6 @@ function checkIfLetterHasBeenGuessed (letterGuessed) {
       numberOfLettersGuessedCorrectly += 1
     }
   }
-
   // find a way to determine if our word contains the letter the user guessed
   // if the letter is not inside the word, deduct a life and draw part of the hangman
   const wordDoesNotContainLetterGuessed = !word.includes(letterGuessed)
@@ -54,13 +51,11 @@ function checkIfLetterHasBeenGuessed (letterGuessed) {
   displayLives()
 }
 
-// Show lives - TODO: students can write this logic
 function displayLives () {
   // if user has run out of lives - show "Game over"
   // display this with: showLives.textContent = "Game Over"
   // else tell user how many lives they have left
   // showLives.textContent = "You have {X} number of lives remaining"
-
   if (lives <= 0) {
     showLives.textContent = 'Game Over'
   } else {
@@ -72,9 +67,10 @@ function displayLives () {
   }
 }
 
-// this will draw an additional piece of the hangman whenever we guess incorrectly
-// TODO: students can write this logic
+// this will draw an additional piece of the hangman
 function drawHangman () {
+  // hangmanParts correlates to the number of lives a user has
+  // how can we be sure to always draw the right body part in accordance with how many lives we have?
   // each item in this array is a function that will draw the hangman part
   // make sure when you access the hangman item that you call the function with () to draw that part
   const hangmanParts = [rightLeg, leftLeg, rightArm, leftArm, torso, head, noose, ceiling, post, base]
