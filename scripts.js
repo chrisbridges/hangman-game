@@ -13,16 +13,15 @@ play()
 // "b" === String.fromCharCode(98)
 // and so on...
 function generateAlphabet () {
-  const alphabet = []
+  const letters = []
   for (let i = 0; i < 26; i++) {
-    alphabet.push(String.fromCharCode(i + 97))
+    letters.push(String.fromCharCode(i + 97))
   }
-  return alphabet
+  return letters
 }
 
 function randomWord () {
   // TODO: have students list words
-  // TODO: potentially limit to single words for simplicity sake? - importing numberOfSpacesInWord
   const words = [
     'hangman', 'javascript', 'thinkful'
   ]
@@ -31,6 +30,7 @@ function randomWord () {
   // HINT: we can use the Math methods of floor and random to help here
   let word = words[Math.floor(Math.random() * words.length)]
   // let's turn our chosen word into an array
+  // hint: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split
   word = word.split('')
   return word
 }
@@ -75,6 +75,8 @@ function displayLives () {
 // this will draw an additional piece of the hangman whenever we guess incorrectly
 // TODO: students can write this logic
 function drawHangman () {
+  // each item in this array is a function that will draw the hangman part
+  // make sure when you access the hangman item that you call the function with () to draw that part
   const hangmanParts = [rightLeg, leftLeg, rightArm, leftArm, torso, head, noose, ceiling, post, base]
   hangmanParts[lives]()
 }
