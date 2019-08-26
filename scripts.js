@@ -1,24 +1,13 @@
 import { drawHangmanBox, generateButtons, createBlanksForWord, showLives, resetGame, rightLeg, leftLeg, rightArm, leftArm, torso, head, noose, ceiling, post, base } from './other.js'
 
 const word = randomWord()
-// this array contains the blank spaces displayed to a player to guess our word
+// this array contains the blank spaces displayed to a player to guess their word
 const letterBlanks = []
 let lives = 10
 let numberOfLettersGuessedCorrectly = 0
 const alphabet = generateAlphabet()
 
 play()
-
-// Note: "a" in JavaScript is returned from String.fromCharCode(97)
-// "b" === String.fromCharCode(98)
-// and so on...
-function generateAlphabet () {
-  const letters = []
-  for (let i = 0; i < 26; i++) {
-    letters.push(String.fromCharCode(i + 97))
-  }
-  return letters
-}
 
 function randomWord () {
   const words = [
@@ -33,7 +22,19 @@ function randomWord () {
   return word
 }
 
+// Note: "a" in JavaScript is returned from String.fromCharCode(97)
+// "b" === String.fromCharCode(98)
+// and so on...
+function generateAlphabet () {
+  const letters = []
+  for (let i = 0; i < 26; i++) {
+    letters.push(String.fromCharCode(i + 97))
+  }
+  return letters
+}
+
 function checkIfLetterHasBeenGuessed (letterGuessed) {
+  // whenever a letter is guessed, loop through our word and fill in letters that match the letter guessed
   for (let i = 0; i < word.length; i++) {
     if (word[i] === letterGuessed) {
       letterBlanks[i].textContent = letterGuessed
