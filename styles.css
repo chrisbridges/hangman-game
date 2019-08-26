@@ -1,5 +1,5 @@
 body {
-  background: #c1d72e;
+  background: #99ccff;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   color: #fff;
   height: 100%;
@@ -53,7 +53,7 @@ p {
   height: 30px;
   padding-top: 10px;
   background: #fff;
-  color: #c1d72e;
+  color: #99ccff;
   cursor: pointer;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -62,7 +62,7 @@ p {
   border: solid 1px #fff;
 }
 #alphabet li:hover {
-  background: #c1d72e;
+  background: #99ccff;
   border: solid 1px #fff;
   color: #fff;
 }
@@ -108,7 +108,7 @@ button {
   -webkit-border-radius: 5px;
   border-radius: 5px;
   -khtml-border-radius: 5px;
-  background: #c1d72e;
+  background: #99ccff;
   color: #fff;
   border: solid 1px #fff;
   text-decoration: none;
@@ -125,7 +125,7 @@ button:hover {
   transition: all 0.3s ease-in-out;
   background: #fff;
   border: solid 1px #fff;
-  color: #c1d72e;
+  color: #99ccff;
 }
 @media (max-width: 767px) {
   #alphabet {
