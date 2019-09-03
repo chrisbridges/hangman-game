@@ -13,13 +13,13 @@ function randomWord () {
   // these are the words our players can guess - add whichever words you like
   // NOTE: for simplicity's sake, this game has been optimized for single words without spaces
   const words = [
-    'hangman', 'javascript', 'thinkful'
+
   ]
   // choose a random word from our array of words for our game
   // HINT: we can use the Math methods of floor and random to help here
-  let word = words[Math.floor(Math.random() * words.length)]
+  let word
   // let's turn our chosen word into an array
-  word = word.split('')
+
   return word
 }
 
@@ -28,9 +28,7 @@ function randomWord () {
 // and so on...
 function generateAlphabet () {
   const letters = []
-  for (let i = 0; i < 26; i++) {
-    letters.push(String.fromCharCode(i + 97))
-  }
+
   return letters
 }
 
@@ -38,22 +36,11 @@ function checkIfLetterHasBeenGuessed (letterGuessed) {
   // whenever a letter is guessed, loop through our word and fill in letters that match the letter guessed
   // we can modify the text content of our letterBlanks elements by using .textContent = letterGuessed
   // if a user guesses a letter correctly, make sure to keep track of that to check if they've won
-  for (let i = 0; i < word.length; i++) {
-    if (word[i] === letterGuessed) {
-      letterBlanks[i].textContent = letterGuessed
-      numberOfLettersGuessedCorrectly += 1
-    }
-  }
+
   // find a way to determine if our word contains the letter the user guessed
   // if the letter is not inside the word, deduct a life and draw part of the hangman
   // hint: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
-  const wordDoesNotContainLetterGuessed = !word.includes(letterGuessed)
 
-  if (wordDoesNotContainLetterGuessed) {
-    lives -= 1
-    drawHangman()
-  }
-  displayLives()
 }
 
 function displayLives () {
@@ -61,15 +48,9 @@ function displayLives () {
   // display this with: showLives.textContent = "Game Over"
   // else tell user how many lives they have left
   // showLives.textContent = "You have {X} number of lives remaining"
-  if (lives <= 0) {
-    showLives.textContent = 'Game Over'
-  } else {
-    showLives.textContent = 'You have ' + lives + ' lives'
-  }
+
   // check if user won game. If they did, let them know
-  if (numberOfLettersGuessedCorrectly === word.length) {
-    showLives.textContent = 'You Win!'
-  }
+
 }
 
 // this will draw an additional piece of the hangman
@@ -79,7 +60,9 @@ function drawHangman () {
   // each item in this array is a function that will draw the hangman part
   // make sure when you access the hangman item that you call the function with () to draw that part
   const hangmanParts = [rightLeg, leftLeg, rightArm, leftArm, torso, head, noose, ceiling, post, base]
-  hangmanParts[lives]()
+
+  // draw the hangman part
+  
 }
 
 // Start our game
