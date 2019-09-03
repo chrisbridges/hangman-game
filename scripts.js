@@ -10,6 +10,8 @@ const alphabet = generateAlphabet()
 play()
 
 function randomWord () {
+  // these are the words our players can guess - add whichever words you like
+  // NOTE: for simplicity's sake, this game has been optimized for single words without spaces
   const words = [
     'hangman', 'javascript', 'thinkful'
   ]
@@ -17,7 +19,6 @@ function randomWord () {
   // HINT: we can use the Math methods of floor and random to help here
   let word = words[Math.floor(Math.random() * words.length)]
   // let's turn our chosen word into an array
-  // hint: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split
   word = word.split('')
   return word
 }
@@ -35,6 +36,8 @@ function generateAlphabet () {
 
 function checkIfLetterHasBeenGuessed (letterGuessed) {
   // whenever a letter is guessed, loop through our word and fill in letters that match the letter guessed
+  // we can modify the text content of our letterBlanks elements by using .textContent = letterGuessed
+  // if a user guesses a letter correctly, make sure to keep track of that to check if they've won
   for (let i = 0; i < word.length; i++) {
     if (word[i] === letterGuessed) {
       letterBlanks[i].textContent = letterGuessed
@@ -43,6 +46,7 @@ function checkIfLetterHasBeenGuessed (letterGuessed) {
   }
   // find a way to determine if our word contains the letter the user guessed
   // if the letter is not inside the word, deduct a life and draw part of the hangman
+  // hint: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
   const wordDoesNotContainLetterGuessed = !word.includes(letterGuessed)
 
   if (wordDoesNotContainLetterGuessed) {
@@ -62,7 +66,7 @@ function displayLives () {
   } else {
     showLives.textContent = 'You have ' + lives + ' lives'
   }
-  // check if user won game
+  // check if user won game. If they did, let them know
   if (numberOfLettersGuessedCorrectly === word.length) {
     showLives.textContent = 'You Win!'
   }
@@ -88,3 +92,8 @@ function play () {
 }
 
 export { checkIfLetterHasBeenGuessed, alphabet, letterBlanks }
+
+// NOTE: a lot of DOM manipulation and other logic has been abstracted away from this file into the other.js file
+// the point of this exercise is to focus on the core logic of the game.
+// Many aspects of this application do not follow what would commonly be considered best practices,
+// but it serves as a fun jumping off point for now :)
